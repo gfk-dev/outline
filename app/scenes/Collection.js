@@ -42,12 +42,14 @@ import CollectionMembers from 'scenes/CollectionMembers';
 import Tabs from 'components/Tabs';
 import Tab from 'components/Tab';
 import PaginatedDocumentList from 'components/PaginatedDocumentList';
+import AuthStore from '../stores/AuthStore';
 
 type Props = {
   ui: UiStore,
   documents: DocumentsStore,
   collections: CollectionsStore,
   policies: PoliciesStore,
+  auth: AuthStore,
   match: Object,
   theme: Object,
 };
@@ -115,43 +117,48 @@ class CollectionScene extends React.Component<Props> {
   };
 
   renderActions() {
-    const { match, policies } = this.props;
+    const { match, policies, auth } = this.props;
     const can = policies.abilities(match.params.id);
+    const { user = {} } = auth;
+    const isAdmin = user.isAdmin;
 
     return (
       <Actions align="center" justify="flex-end">
-        {can.update && (
-          <React.Fragment>
-            <Action>
-              <InputSearch
-                placeholder="Search in collection…"
-                collectionId={match.params.id}
-              />
-            </Action>
-            <Action>
-              <Tooltip
-                tooltip="New document"
-                shortcut="n"
-                delay={500}
-                placement="bottom"
-              >
-                <Button onClick={this.onNewDocument} icon={<PlusIcon />}>
-                  New doc
-                </Button>
-              </Tooltip>
-            </Action>
-            <Separator />
-          </React.Fragment>
+        {isAdmin &&
+          can.update && (
+            <React.Fragment>
+              <Action>
+                <InputSearch
+                  placeholder="Search in collection…"
+                  collectionId={match.params.id}
+                />
+              </Action>
+              <Action>
+                <Tooltip
+                  tooltip="New document"
+                  shortcut="n"
+                  delay={500}
+                  placement="bottom"
+                >
+                  <Button onClick={this.onNewDocument} icon={<PlusIcon />}>
+                    New doc
+                  </Button>
+                </Tooltip>
+              </Action>
+              <Separator />
+            </React.Fragment>
+          )}
+        {isAdmin && (
+          <Action>
+            <CollectionMenu collection={this.collection} />
+          </Action>
         )}
-        <Action>
-          <CollectionMenu collection={this.collection} />
-        </Action>
       </Actions>
     );
   }
 
   render() {
-    const { documents, theme } = this.props;
+    const { documents, theme, auth } = this.props;
 
     if (this.redirectTo) return <Redirect to={this.redirectTo} push />;
     if (!this.isFetching && !this.collection) return <Search notFound />;
@@ -161,6 +168,8 @@ class CollectionScene extends React.Component<Props> {
       : [];
     const hasPinnedDocuments = !!pinnedDocuments.length;
     const collection = this.collection;
+    const { user = {} } = auth;
+    const isAdmin = user.isAdmin;
 
     return (
       <CenteredContent>
@@ -171,20 +180,24 @@ class CollectionScene extends React.Component<Props> {
               <Centered column>
                 <HelpText>
                   <strong>{collection.name}</strong> doesn’t contain any
-                  documents yet.<br />Get started by creating a new one!
+                  documents yet.
                 </HelpText>
-                <Wrapper>
-                  <Link to={newDocumentUrl(collection.id)}>
-                    <Button icon={<NewDocumentIcon color={theme.buttonText} />}>
-                      Create a document
-                    </Button>
-                  </Link>&nbsp;&nbsp;
-                  {collection.private && (
-                    <Button onClick={this.onPermissions} neutral>
-                      Manage members…
-                    </Button>
-                  )}
-                </Wrapper>
+                {isAdmin && (
+                  <Wrapper>
+                    <Link to={newDocumentUrl(collection.id)}>
+                      <Button
+                        icon={<NewDocumentIcon color={theme.buttonText} />}
+                      >
+                        Create a document
+                      </Button>
+                    </Link>&nbsp;&nbsp;
+                    {collection.private && (
+                      <Button onClick={this.onPermissions} neutral>
+                        Manage members…
+                      </Button>
+                    )}
+                  </Wrapper>
+                )}
                 <Modal
                   title="Collection members"
                   onRequestClose={this.handlePermissionsModalClose}
@@ -341,6 +354,6 @@ const Wrapper = styled(Flex)`
   margin: 10px 0;
 `;
 
-export default inject('collections', 'policies', 'documents', 'ui')(
+export default inject('collections', 'policies', 'documents', 'ui', 'auth')(
   withTheme(CollectionScene)
 );

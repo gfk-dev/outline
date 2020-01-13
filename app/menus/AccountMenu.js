@@ -44,8 +44,10 @@ class AccountMenu extends React.Component<Props> {
   };
 
   render() {
-    const { ui, theme } = this.props;
+    const { ui, theme, auth } = this.props;
     const isLightTheme = ui.theme === 'light';
+    const { user = {} } = auth;
+    const isAdmin = user.isAdmin;
 
     return (
       <React.Fragment>
@@ -60,29 +62,41 @@ class AccountMenu extends React.Component<Props> {
           style={{ marginRight: 10, marginTop: -10 }}
           label={this.props.label}
         >
-          <DropdownMenuItem as={Link} to={settings()}>
-            Settings
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={this.handleOpenKeyboardShortcuts}>
-            Keyboard shortcuts
-          </DropdownMenuItem>
-          <DropdownMenuItem href={developers()} target="_blank">
-            API documentation
-          </DropdownMenuItem>
-          <hr />
-          <DropdownMenuItem href={changelog()} target="_blank">
-            Changelog
-          </DropdownMenuItem>
-          <DropdownMenuItem href={spectrumUrl()} target="_blank">
-            Community
-          </DropdownMenuItem>
-          <DropdownMenuItem href={mailToUrl()} target="_blank">
-            Send us feedback
-          </DropdownMenuItem>
-          <DropdownMenuItem href={githubIssuesUrl()} target="_blank">
-            Report a bug
-          </DropdownMenuItem>
-          <hr />
+          {isAdmin && (
+            <DropdownMenuItem as={Link} to={settings()}>
+              Settings
+            </DropdownMenuItem>
+          )}
+          {isAdmin && (
+            <DropdownMenuItem onClick={this.handleOpenKeyboardShortcuts}>
+              Keyboard shortcuts
+            </DropdownMenuItem>
+          )}
+          {isAdmin && (
+            <DropdownMenuItem href={developers()} target="_blank">
+              API documentation
+            </DropdownMenuItem>
+          )}
+          {isAdmin && (
+            <DropdownMenuItem href={changelog()} target="_blank">
+              Changelog
+            </DropdownMenuItem>
+          )}
+          {isAdmin && (
+            <DropdownMenuItem href={spectrumUrl()} target="_blank">
+              Community
+            </DropdownMenuItem>
+          )}
+          {isAdmin && (
+            <DropdownMenuItem href={mailToUrl()} target="_blank">
+              Send us feedback
+            </DropdownMenuItem>
+          )}
+          {isAdmin && (
+            <DropdownMenuItem href={githubIssuesUrl()} target="_blank">
+              Report a bug
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem onClick={ui.toggleDarkMode}>
             <NightMode justify="space-between">
               Night Mode{' '}

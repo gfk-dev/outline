@@ -114,7 +114,9 @@ class Header extends React.Component<Props> {
     const can = policies.abilities(document.id);
     const canShareDocuments = auth.team && auth.team.sharing && can.share;
     const canToggleEmbeds = auth.team && auth.team.documentEmbeds;
-    const canEdit = can.update && !isEditing;
+    const { user = {} } = auth;
+    const isAdmin = user.isAdmin;
+    const canEdit = isAdmin && can.update && !isEditing;
 
     return (
       <Actions
@@ -149,10 +151,12 @@ class Header extends React.Component<Props> {
                 <Status>Saving…</Status>
               </Action>
             )}
-          <Collaborators
-            document={document}
-            currentUserId={auth.user ? auth.user.id : undefined}
-          />
+          {isAdmin && (
+            <Collaborators
+              document={document}
+              currentUserId={auth.user ? auth.user.id : undefined}
+            />
+          )}
           {!isDraft &&
             !isEditing &&
             canShareDocuments && (
@@ -189,7 +193,8 @@ class Header extends React.Component<Props> {
               </Action>
             </React.Fragment>
           )}
-          {can.update &&
+          {isAdmin &&
+            can.update &&
             isDraft && (
               <Action>
                 <Tooltip
@@ -228,7 +233,8 @@ class Header extends React.Component<Props> {
               </Tooltip>
             </Action>
           )}
-          {canEdit &&
+          {isAdmin &&
+            canEdit &&
             !isDraft && (
               <Action>
                 <NewChildDocumentMenu
@@ -249,19 +255,20 @@ class Header extends React.Component<Props> {
               </Action>
             )}
 
-          {!isEditing && (
-            <React.Fragment>
-              <Separator />
-              <Action>
-                <DocumentMenu
-                  document={document}
-                  isRevision={isRevision}
-                  showToggleEmbeds={canToggleEmbeds}
-                  showPrint
-                />
-              </Action>
-            </React.Fragment>
-          )}
+          {isAdmin &&
+            !isEditing && (
+              <React.Fragment>
+                <Separator />
+                <Action>
+                  <DocumentMenu
+                    document={document}
+                    isRevision={isRevision}
+                    showToggleEmbeds={canToggleEmbeds}
+                    showPrint
+                  />
+                </Action>
+              </React.Fragment>
+            )}
         </Wrapper>
       </Actions>
     );

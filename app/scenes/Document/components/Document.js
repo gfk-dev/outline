@@ -80,7 +80,7 @@ class DocumentScene extends React.Component<Props> {
     this.loadEditor();
   }
 
-  @keydown('m')
+  // @keydown('m')
   goToMove(ev) {
     ev.preventDefault();
     const { document, abilities } = this.props;
@@ -90,7 +90,7 @@ class DocumentScene extends React.Component<Props> {
     }
   }
 
-  @keydown('e')
+  // @keydown('e')
   goToEdit(ev) {
     ev.preventDefault();
     const { document, abilities } = this.props;
@@ -100,7 +100,7 @@ class DocumentScene extends React.Component<Props> {
     }
   }
 
-  @keydown('esc')
+  // @keydown('esc')
   goBack(ev) {
     if (this.props.readOnly) return;
 
@@ -108,7 +108,7 @@ class DocumentScene extends React.Component<Props> {
     this.props.history.goBack();
   }
 
-  @keydown('h')
+  // @keydown('h')
   goToHistory(ev) {
     ev.preventDefault();
     const { document, revision } = this.props;
@@ -120,7 +120,7 @@ class DocumentScene extends React.Component<Props> {
     }
   }
 
-  @keydown('meta+shift+p')
+  // @keydown('meta+shift+p')
   onPublish(ev) {
     ev.preventDefault();
     const { document } = this.props;

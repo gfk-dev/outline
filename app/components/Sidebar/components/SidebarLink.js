@@ -64,6 +64,7 @@ class SidebarLink extends React.Component<Props> {
       hideDisclosure,
       exact,
     } = this.props;
+
     const showDisclosure = !!children && !hideDisclosure;
     const activeStyle = {
       color: this.props.theme.text,

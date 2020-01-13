@@ -16,6 +16,7 @@ import CollectionsStore from 'stores/CollectionsStore';
 import PoliciesStore from 'stores/PoliciesStore';
 import UiStore from 'stores/UiStore';
 import DocumentsStore from 'stores/DocumentsStore';
+import AuthStore from 'stores/AuthStore';
 
 type Props = {
   history: RouterHistory,
@@ -24,6 +25,7 @@ type Props = {
   documents: DocumentsStore,
   onCreateCollection: () => void,
   ui: UiStore,
+  auth: AuthStore,
 };
 
 @observer
@@ -38,7 +40,7 @@ class Collections extends React.Component<Props> {
     }
   }
 
-  @keydown('n')
+  // @keydown('n')
   goToNewDocument() {
     const { activeCollectionId } = this.props.ui;
     if (!activeCollectionId) return;
@@ -50,7 +52,8 @@ class Collections extends React.Component<Props> {
   }
 
   render() {
-    const { collections, ui, documents } = this.props;
+    const { collections, ui, documents, auth } = this.props;
+    const { user = {} } = auth;
 
     const content = (
       <Flex column>
@@ -65,11 +68,13 @@ class Collections extends React.Component<Props> {
             ui={ui}
           />
         ))}
-        <SidebarLink
-          onClick={this.props.onCreateCollection}
-          icon={<PlusIcon />}
-          label="New collection…"
-        />
+        {user.isAdmin && (
+          <SidebarLink
+            onClick={this.props.onCreateCollection}
+            icon={<PlusIcon />}
+            label="New collection…"
+          />
+        )}
       </Flex>
     );
 
@@ -80,6 +85,6 @@ class Collections extends React.Component<Props> {
   }
 }
 
-export default inject('collections', 'ui', 'documents', 'policies')(
+export default inject('collections', 'ui', 'documents', 'policies', 'auth')(
   withRouter(Collections)
 );

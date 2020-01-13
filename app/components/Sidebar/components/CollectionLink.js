@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
 import { CollectionIcon, PrivateCollectionIcon } from 'outline-icons';
 import Collection from 'models/Collection';
@@ -12,6 +12,7 @@ import SidebarLink from './SidebarLink';
 import DocumentLink from './DocumentLink';
 import DropToImport from 'components/DropToImport';
 import Flex from 'shared/components/Flex';
+import AuthStore from '../../../stores/AuthStore';
 
 type Props = {
   collection: Collection,
@@ -19,6 +20,7 @@ type Props = {
   documents: DocumentsStore,
   activeDocument: ?Document,
   prefetchDocument: (id: string) => Promise<void>,
+  auth: AuthStore,
 };
 
 @observer
@@ -32,8 +34,11 @@ class CollectionLink extends React.Component<Props> {
       activeDocument,
       prefetchDocument,
       ui,
+      auth,
     } = this.props;
     const expanded = collection.id === ui.activeCollectionId;
+    const { user = {} } = auth;
+    const isAdmin = user.isAdmin;
 
     return (
       <DropToImport
@@ -61,12 +66,16 @@ class CollectionLink extends React.Component<Props> {
           label={collection.name}
           exact={false}
           menu={
-            <CollectionMenu
-              position="right"
-              collection={collection}
-              onOpen={() => (this.menuOpen = true)}
-              onClose={() => (this.menuOpen = false)}
-            />
+            isAdmin ? (
+              <CollectionMenu
+                position="right"
+                collection={collection}
+                onOpen={() => (this.menuOpen = true)}
+                onClose={() => (this.menuOpen = false)}
+              />
+            ) : (
+              undefined
+            )
           }
         >
           <Flex column>
@@ -88,4 +97,4 @@ class CollectionLink extends React.Component<Props> {
   }
 }
 
-export default CollectionLink;
+export default inject('auth')(CollectionLink);

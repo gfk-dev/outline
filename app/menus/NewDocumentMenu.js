@@ -8,6 +8,7 @@ import { PlusIcon, CollectionIcon, PrivateCollectionIcon } from 'outline-icons';
 import { newDocumentUrl } from 'utils/routeHelpers';
 import CollectionsStore from 'stores/CollectionsStore';
 import PoliciesStore from 'stores/PoliciesStore';
+import AuthStore from 'stores/AuthStore';
 import { DropdownMenu, DropdownMenuItem } from 'components/DropdownMenu';
 import Button from 'components/Button';
 
@@ -15,6 +16,7 @@ type Props = {
   label?: React.Node,
   collections: CollectionsStore,
   policies: PoliciesStore,
+  auth: AuthStore,
 };
 
 @observer
@@ -40,42 +42,49 @@ class NewDocumentMenu extends React.Component<Props> {
   render() {
     if (this.redirectTo) return <Redirect to={this.redirectTo} push />;
 
-    const { collections, policies, label, ...rest } = this.props;
+    const { collections, policies, label, auth, ...rest } = this.props;
+    const { user = {} } = auth;
 
     return (
-      <DropdownMenu
-        label={
-          label || (
-            <Button icon={<PlusIcon />} small>
-              New doc
-            </Button>
-          )
-        }
-        onOpen={this.onOpen}
-        {...rest}
-      >
-        <DropdownMenuItem disabled>Choose a collection…</DropdownMenuItem>
-        {collections.orderedData.map(collection => {
-          const can = policies.abilities(collection.id);
+      <div>
+        {user.isAdmin ? (
+          <DropdownMenu
+            label={
+              label || (
+                <Button icon={<PlusIcon />} small>
+                  New doc
+                </Button>
+              )
+            }
+            onOpen={this.onOpen}
+            {...rest}
+          >
+            <DropdownMenuItem disabled>Choose a collection…</DropdownMenuItem>
+            {collections.orderedData.map(collection => {
+              const can = policies.abilities(collection.id);
 
-          return (
-            <DropdownMenuItem
-              key={collection.id}
-              onClick={() => this.handleNewDocument(collection.id)}
-              disabled={!can.update}
-            >
-              {collection.private ? (
-                <PrivateCollectionIcon color={collection.color} />
-              ) : (
-                <CollectionIcon color={collection.color} />
-              )}{' '}
-              {collection.name}
-            </DropdownMenuItem>
-          );
-        })}
-      </DropdownMenu>
+              return (
+                <DropdownMenuItem
+                  key={collection.id}
+                  onClick={() => this.handleNewDocument(collection.id)}
+                  disabled={!can.update}
+                >
+                  {collection.private ? (
+                    <PrivateCollectionIcon color={collection.color} />
+                  ) : (
+                    <CollectionIcon color={collection.color} />
+                  )}{' '}
+                  {collection.name}
+                </DropdownMenuItem>
+              );
+            })}
+          </DropdownMenu>
+        ) : (
+          <span />
+        )}
+      </div>
     );
   }
 }
 
-export default inject('collections', 'policies')(NewDocumentMenu);
+export default inject('collections', 'policies', 'auth')(NewDocumentMenu);

@@ -57,7 +57,7 @@ class Layout extends React.Component<Props> {
     }
   }
 
-  @keydown('shift+/')
+  // @keydown('shift+/')
   handleOpenKeyboardShortcuts() {
     this.keyboardShortcutsOpen = true;
   }
@@ -71,14 +71,14 @@ class Layout extends React.Component<Props> {
     window.document.body.style.background = this.props.theme.background;
   }
 
-  @keydown(['/', 't', 'meta+k'])
+  // @keydown(['/', 't', 'meta+k'])
   goToSearch(ev) {
     ev.preventDefault();
     ev.stopPropagation();
     this.redirectTo = searchUrl();
   }
 
-  @keydown('d')
+  // @keydown('d')
   goToDashboard() {
     this.redirectTo = homeUrl();
   }

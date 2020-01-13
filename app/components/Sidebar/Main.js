@@ -42,7 +42,7 @@ class MainSidebar extends React.Component<Props> {
   @observable inviteModalOpen: boolean = false;
 
   componentDidMount() {
-    this.props.documents.fetchDrafts();
+    // this.props.documents.fetchDrafts();
   }
 
   handleCreateCollection = () => {
@@ -64,6 +64,7 @@ class MainSidebar extends React.Component<Props> {
 
     const draftDocumentsCount = documents.drafts.length;
     const can = policies.abilities(team.id);
+    const isAdmin = user.isAdmin;
 
     return (
       <Sidebar>
@@ -101,56 +102,61 @@ class MainSidebar extends React.Component<Props> {
                 exact={false}
                 label="Starred"
               />
-              <SidebarLink
-                to="/drafts"
-                icon={<EditIcon />}
-                label={
-                  <Drafts align="center">
-                    Drafts{draftDocumentsCount > 0 && (
-                      <Bubble count={draftDocumentsCount} />
-                    )}
-                  </Drafts>
-                }
-                active={
-                  documents.active
-                    ? !documents.active.publishedAt &&
-                      !documents.active.isDeleted
-                    : undefined
-                }
-              />
+              {isAdmin && (
+                <SidebarLink
+                  to="/drafts"
+                  icon={<EditIcon />}
+                  label={
+                    <Drafts align="center">
+                      Drafts{draftDocumentsCount > 0 && (
+                        <Bubble count={draftDocumentsCount} />
+                      )}
+                    </Drafts>
+                  }
+                  active={
+                    documents.active
+                      ? !documents.active.publishedAt &&
+                        !documents.active.isDeleted
+                      : undefined
+                  }
+                />
+              )}
             </Section>
             <Section>
               <Collections onCreateCollection={this.handleCreateCollection} />
             </Section>
-            <Section>
-              <SidebarLink
-                to="/archive"
-                icon={<ArchiveIcon />}
-                exact={false}
-                label="Archive"
-                active={
-                  documents.active
-                    ? documents.active.isArchived && !documents.active.isDeleted
-                    : undefined
-                }
-              />
-              <SidebarLink
-                to="/trash"
-                icon={<TrashIcon />}
-                exact={false}
-                label="Trash"
-                active={
-                  documents.active ? documents.active.isDeleted : undefined
-                }
-              />
-              {can.invite && (
+            {isAdmin && (
+              <Section>
                 <SidebarLink
-                  onClick={this.handleInviteModalOpen}
-                  icon={<PlusIcon />}
-                  label="Invite people…"
+                  to="/archive"
+                  icon={<ArchiveIcon />}
+                  exact={false}
+                  label="Archive"
+                  active={
+                    documents.active
+                      ? documents.active.isArchived &&
+                        !documents.active.isDeleted
+                      : undefined
+                  }
                 />
-              )}
-            </Section>
+                <SidebarLink
+                  to="/trash"
+                  icon={<TrashIcon />}
+                  exact={false}
+                  label="Trash"
+                  active={
+                    documents.active ? documents.active.isDeleted : undefined
+                  }
+                />
+                {can.invite && (
+                  <SidebarLink
+                    onClick={this.handleInviteModalOpen}
+                    icon={<PlusIcon />}
+                    label="Invite people…"
+                  />
+                )}
+              </Section>
+            )}
           </Scrollable>
         </Flex>
         <Modal

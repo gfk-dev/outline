@@ -14,6 +14,7 @@ type Props = {
   googleSigninEnabled: boolean,
   slackSigninEnabled: boolean,
   guestSigninEnabled?: boolean,
+  quezxSigninEnabled: boolean,
 };
 
 const SigninButtons = ({
@@ -21,6 +22,7 @@ const SigninButtons = ({
   slackSigninEnabled,
   googleSigninEnabled,
   guestSigninEnabled,
+  quezxSigninEnabled,
 }: Props) => {
   return (
     <Wrapper>
@@ -51,6 +53,16 @@ const SigninButtons = ({
           <LastLogin>
             {lastSignedIn === 'google' &&
               'You signed in with Google previously'}
+          </LastLogin>
+        </Column>
+      )}
+      {quezxSigninEnabled && (
+        <Column column>
+          <Button href={signin('quezx')}>
+            <Spacer>Sign In with QUEZX</Spacer>
+          </Button>
+          <LastLogin>
+            {lastSignedIn === 'quezx' && 'You signed in with QuezX previously'}
           </LastLogin>
         </Column>
       )}

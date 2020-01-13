@@ -34,6 +34,7 @@ class KeyboardShortcutsButton extends React.Component<Props> {
         >
           <KeyboardShortcuts />
         </Modal>
+        {/*
         <Tooltip
           tooltip="Keyboard shortcuts"
           shortcut="?"
@@ -43,7 +44,7 @@ class KeyboardShortcutsButton extends React.Component<Props> {
           <Button onClick={this.handleOpenKeyboardShortcuts}>
             <KeyboardIcon />
           </Button>
-        </Tooltip>
+        </Tooltip>*/}
       </React.Fragment>
     );
   }

@@ -188,7 +188,7 @@ const checkLastAdmin = async model => {
 
 User.beforeDestroy(checkLastAdmin);
 User.beforeDestroy(removeIdentifyingInfo);
-User.beforeSave(uploadAvatar);
+// User.beforeSave(uploadAvatar);
 User.beforeCreate(setRandomJwtSecret);
 User.afterCreate(async user => {
   const team = await Team.findByPk(user.teamId);

@@ -28,6 +28,7 @@ function SubdomainSignin({
   notice,
   googleSigninEnabled,
   slackSigninEnabled,
+  quezxSigninEnabled,
   hostname,
 }: Props) {
   googleSigninEnabled = !!team.googleId && googleSigninEnabled;
@@ -71,6 +72,7 @@ function SubdomainSignin({
                   googleSigninEnabled={googleSigninEnabled}
                   slackSigninEnabled={slackSigninEnabled}
                   lastSignedIn={signinHint}
+                  quezxSigninEnabled={quezxSigninEnabled}
                 />
               </p>
             </React.Fragment>

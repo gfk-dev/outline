@@ -102,6 +102,7 @@ router.get('/', async ctx => {
           googleSigninEnabled={!!process.env.GOOGLE_CLIENT_ID}
           slackSigninEnabled={!!process.env.SLACK_KEY}
           hostname={ctx.request.hostname}
+          quezxSigninEnabled={!!process.env.QUEZX_CLIENT_KEY}
         />
       );
     }
@@ -118,6 +119,7 @@ router.get('/', async ctx => {
       lastSignedIn={lastSignedIn}
       googleSigninEnabled={!!process.env.GOOGLE_CLIENT_ID}
       slackSigninEnabled={!!process.env.SLACK_KEY}
+      quezxSigninEnabled={!!process.env.QUEZX_CLIENT_KEY}
     />
   );
 });

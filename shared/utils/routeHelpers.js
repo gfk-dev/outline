@@ -1,5 +1,21 @@
 // @flow
 
+export function quezxAuth(
+  redirectUri: string = `${process.env.URL}/auth/quezx.callback`
+): string {
+  const baseUrl = `${process.env.QUEZX_API_URL}/signin`;
+  const params = {
+    client_id: process.env.QUEZX_CLIENT_KEY,
+    redirect_uri: redirectUri,
+  };
+
+  const urlParams = Object.keys(params)
+    .map(key => `${key}=${encodeURIComponent(params[key])}`)
+    .join('&');
+
+  return `${baseUrl}?${urlParams}`;
+}
+
 export function slackAuth(
   state: string,
   scopes: string[] = [

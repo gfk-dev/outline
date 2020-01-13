@@ -16,6 +16,7 @@ import ArrowKeyNavigation from 'boundless-arrow-key-navigation';
 import { DEFAULT_PAGINATION_LIMIT } from 'stores/BaseStore';
 import DocumentsStore from 'stores/DocumentsStore';
 import UsersStore from 'stores/UsersStore';
+import AuthStore from 'stores/AuthStore';
 import { newDocumentUrl, searchUrl } from 'utils/routeHelpers';
 import { meta } from 'utils/keyboard';
 
@@ -42,6 +43,7 @@ type Props = {
   documents: DocumentsStore,
   users: UsersStore,
   notFound: ?boolean,
+  auth: AuthStore,
 };
 
 @observer
@@ -73,7 +75,7 @@ class Search extends React.Component<Props> {
     }
   }
 
-  @keydown('esc')
+  // @keydown('esc')
   goBack() {
     this.props.history.goBack();
   }
@@ -226,7 +228,8 @@ class Search extends React.Component<Props> {
   };
 
   render() {
-    const { documents, notFound, location } = this.props;
+    const { documents, notFound, location, auth } = this.props;
+    const { user = {} } = auth;
     const results = documents.searchResults(this.query);
     const showEmpty = !this.isFetching && this.query && results.length === 0;
     const showShortcutTip =
@@ -285,25 +288,32 @@ class Search extends React.Component<Props> {
               <Empty>
                 <Centered column>
                   <HelpText>
-                    No documents found for your search filters. <br />Create a
-                    new document?
+                    No documents found for your search filters.
                   </HelpText>
-                  <Wrapper>
-                    {this.collectionId ? (
-                      <Button
-                        onClick={this.handleNewDoc}
-                        icon={<PlusIcon />}
-                        primary
-                      >
-                        New doc
+                  {user.isAdmin ? (
+                    <Wrapper>
+                      {this.collectionId ? (
+                        <Button
+                          onClick={this.handleNewDoc}
+                          icon={<PlusIcon />}
+                          primary
+                        >
+                          New doc Need to change
+                        </Button>
+                      ) : (
+                        <NewDocumentMenu />
+                      )}&nbsp;&nbsp;
+                      <Button as={Link} to="/search" neutral>
+                        Clear filters
                       </Button>
-                    ) : (
-                      <NewDocumentMenu />
-                    )}&nbsp;&nbsp;
-                    <Button as={Link} to="/search" neutral>
-                      Clear filters
-                    </Button>
-                  </Wrapper>
+                    </Wrapper>
+                  ) : (
+                    <Wrapper>
+                      <Button as={Link} to="/search" neutral>
+                        Clear filters
+                      </Button>
+                    </Wrapper>
+                  )}
                 </Centered>
               </Empty>
             </Fade>
@@ -388,4 +398,4 @@ const Filters = styled(Flex)`
   }
 `;
 
-export default withRouter(inject('documents')(Search));
+export default withRouter(inject('documents', 'auth')(Search));

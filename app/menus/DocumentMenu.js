@@ -133,97 +133,109 @@ class DocumentMenu extends React.Component<Props> {
     const can = policies.abilities(document.id);
     const canShareDocuments = can.share && auth.team && auth.team.sharing;
     const canViewHistory = can.read && !can.restore;
+    const { user = {} } = auth;
+    const isAdmin = user.isAdmin;
 
     return (
-      <DropdownMenu
-        className={className}
-        position={position}
-        onOpen={onOpen}
-        onClose={onClose}
-      >
-        {(can.unarchive || can.restore) && (
-          <DropdownMenuItem onClick={this.handleRestore}>
-            Restore
-          </DropdownMenuItem>
-        )}
-        {showPin &&
-          (document.pinned
-            ? can.unpin && (
-                <DropdownMenuItem onClick={this.handleUnpin}>
-                  Unpin
-                </DropdownMenuItem>
-              )
-            : can.pin && (
-                <DropdownMenuItem onClick={this.handlePin}>
-                  Pin to collection
-                </DropdownMenuItem>
-              ))}
-        {document.isStarred
-          ? can.unstar && (
-              <DropdownMenuItem onClick={this.handleUnstar}>
-                Unstar
-              </DropdownMenuItem>
-            )
-          : can.star && (
-              <DropdownMenuItem onClick={this.handleStar}>
-                Star
+      <div>
+        {isAdmin ? (
+          <DropdownMenu
+            className={className}
+            position={position}
+            onOpen={onOpen}
+            onClose={onClose}
+          >
+            {(can.unarchive || can.restore) && (
+              <DropdownMenuItem onClick={this.handleRestore}>
+                Restore
               </DropdownMenuItem>
             )}
-        {canShareDocuments && (
-          <DropdownMenuItem
-            onClick={this.handleShareLink}
-            title="Create a public share link"
-          >
-            Share link…
-          </DropdownMenuItem>
-        )}
-        {canViewHistory && (
-          <React.Fragment>
+            {showPin &&
+              (document.pinned
+                ? can.unpin && (
+                    <DropdownMenuItem onClick={this.handleUnpin}>
+                      Unpin
+                    </DropdownMenuItem>
+                  )
+                : can.pin && (
+                    <DropdownMenuItem onClick={this.handlePin}>
+                      Pin to collection
+                    </DropdownMenuItem>
+                  ))}
+            {document.isStarred
+              ? can.unstar && (
+                  <DropdownMenuItem onClick={this.handleUnstar}>
+                    Unstar
+                  </DropdownMenuItem>
+                )
+              : can.star && (
+                  <DropdownMenuItem onClick={this.handleStar}>
+                    Star
+                  </DropdownMenuItem>
+                )}
+            {canShareDocuments && (
+              <DropdownMenuItem
+                onClick={this.handleShareLink}
+                title="Create a public share link"
+              >
+                Share link…
+              </DropdownMenuItem>
+            )}
+            {canViewHistory && (
+              <React.Fragment>
+                <hr />
+                <DropdownMenuItem onClick={this.handleDocumentHistory}>
+                  Document history
+                </DropdownMenuItem>
+              </React.Fragment>
+            )}
+            {can.update && (
+              <DropdownMenuItem
+                onClick={this.handleNewChild}
+                title="Create a nested document inside the current document"
+              >
+                New nested document
+              </DropdownMenuItem>
+            )}
+            {can.update && (
+              <DropdownMenuItem onClick={this.handleEdit}>
+                Edit
+              </DropdownMenuItem>
+            )}
+            {can.update && (
+              <DropdownMenuItem onClick={this.handleDuplicate}>
+                Duplicate
+              </DropdownMenuItem>
+            )}
+            {can.archive && (
+              <DropdownMenuItem onClick={this.handleArchive}>
+                Archive
+              </DropdownMenuItem>
+            )}
+            {can.delete && (
+              <DropdownMenuItem onClick={this.handleDelete}>
+                Delete…
+              </DropdownMenuItem>
+            )}
+            {can.move && (
+              <DropdownMenuItem onClick={this.handleMove}>
+                Move…
+              </DropdownMenuItem>
+            )}
             <hr />
-            <DropdownMenuItem onClick={this.handleDocumentHistory}>
-              Document history
-            </DropdownMenuItem>
-          </React.Fragment>
+            {can.download && (
+              <DropdownMenuItem onClick={this.handleExport}>
+                Download
+              </DropdownMenuItem>
+            )}
+            {showPrint && (
+              <DropdownMenuItem onClick={window.print}>Print</DropdownMenuItem>
+            )}
+          </DropdownMenu>
+        ) : (
+            <div></div>
         )}
-        {can.update && (
-          <DropdownMenuItem
-            onClick={this.handleNewChild}
-            title="Create a nested document inside the current document"
-          >
-            New nested document
-          </DropdownMenuItem>
-        )}
-        {can.update && (
-          <DropdownMenuItem onClick={this.handleEdit}>Edit</DropdownMenuItem>
-        )}
-        {can.update && (
-          <DropdownMenuItem onClick={this.handleDuplicate}>
-            Duplicate
-          </DropdownMenuItem>
-        )}
-        {can.archive && (
-          <DropdownMenuItem onClick={this.handleArchive}>
-            Archive
-          </DropdownMenuItem>
-        )}
-        {can.delete && (
-          <DropdownMenuItem onClick={this.handleDelete}>
-            Delete…
-          </DropdownMenuItem>
-        )}
-        {can.move && (
-          <DropdownMenuItem onClick={this.handleMove}>Move…</DropdownMenuItem>
-        )}
-        <hr />
-        {can.download && (
-          <DropdownMenuItem onClick={this.handleExport}>
-            Download
-          </DropdownMenuItem>
-        )}
-        {showPrint && (
-          <DropdownMenuItem onClick={window.print}>Print</DropdownMenuItem>
-        )}
-      </DropdownMenu>
+      </div>
     );
   }
 }

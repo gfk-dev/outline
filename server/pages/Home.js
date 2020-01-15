@@ -35,9 +35,9 @@ function Home(props: Props) {
           <p>
             <SigninButtons {...props} />
           </p>
-          <p>
+          {/*<p>
             <a href={githubUrl()}>Powered by Outline</a>
-          </p>
+          </p>*/}
         </Hero>
       </Grid>
     </span>

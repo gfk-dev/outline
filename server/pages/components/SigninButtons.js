@@ -27,7 +27,8 @@ const SigninButtons = ({
   return (
     <Wrapper>
       {!slackSigninEnabled &&
-        !googleSigninEnabled && (
+        !googleSigninEnabled &&
+        !quezxSigninEnabled && (
           <Notice>
             Neither Slack or Google sign in is enabled. You must configure at
             least one authentication method to sign in to Outline.

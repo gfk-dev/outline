@@ -255,7 +255,7 @@ class Search extends React.Component<Props> {
             <Fade>
               <HelpText small>
                 Use the <strong>{meta}+K</strong> shortcut to search from
-                anywhere in Outline
+                anywhere in QuezX.com
               </HelpText>
             </Fade>
           )}

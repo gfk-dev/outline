@@ -7,7 +7,7 @@ import Analytics from './Analytics';
 import GlobalStyles from '../../../shared/styles/globals';
 import prefetchTags from '../../utils/prefetchTags';
 
-export const title = 'Outline';
+export const title = 'QuezX.com';
 export const description =
   'Your team’s knowledge base - Team wiki, documentation, playbooks, onboarding & more…';
 export const screenshotUrl = `${process.env.URL}/screenshot.png`;

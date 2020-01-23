@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 function PageTitle({ title }: { title: string }) {
   return (
     <Helmet>
-      <title>{title} – Outline</title>
+      <title>{title} – QuezX.com</title>
     </Helmet>
   );
 }

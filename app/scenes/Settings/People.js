@@ -73,7 +73,7 @@ class People extends React.Component<Props> {
         <PageTitle title="People" />
         <h1>People</h1>
         <HelpText>
-          Everyone that has signed into Outline appears here. It’s possible that
+          Everyone that has signed into QuezX.com appears here. It’s possible that
           there are other users who have access through {team.signinMethods} but
           haven’t signed in yet.
         </HelpText>

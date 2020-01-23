@@ -39,7 +39,7 @@ class UserDelete extends React.Component<Props> {
             <HelpText>
               Are you sure? Deleting your account will destory identifying data
               associated with your user and cannot be undone. You will be
-              immediately logged out of Outline and all your API tokens will be
+              immediately logged out of QuezX.com and all your API tokens will be
               revoked.
             </HelpText>
             <HelpText>

@@ -31,7 +31,7 @@ const SigninButtons = ({
         !quezxSigninEnabled && (
           <Notice>
             Neither Slack or Google sign in is enabled. You must configure at
-            least one authentication method to sign in to Outline.
+            least one authentication method to sign in to QuezX.com.
           </Notice>
         )}
       {slackSigninEnabled && (
@@ -59,11 +59,11 @@ const SigninButtons = ({
       )}
       {quezxSigninEnabled && (
         <Column column>
-          <Button href={signin('quezx')}>
-            <Spacer>Sign In with QUEZX</Spacer>
+          <Button href={signin('QuezX')}>
+            <Spacer>Sign In with QuezX</Spacer>
           </Button>
           <LastLogin>
-            {lastSignedIn === 'quezx' && 'You signed in with QuezX previously'}
+            {lastSignedIn === 'QuezX' && 'You signed in with QuezX previously'}
           </LastLogin>
         </Column>
       )}

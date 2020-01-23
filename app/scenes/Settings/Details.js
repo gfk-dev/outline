@@ -85,7 +85,7 @@ class Details extends React.Component<Props> {
         <PageTitle title="Details" />
         <h1>Details</h1>
         <HelpText>
-          These details affect the way that your Outline appears to everyone on
+          These details affect the way that your article appears to everyone on
           the team.
         </HelpText>
 

@@ -41,7 +41,7 @@ export default ({ unsubscribeUrl }: Props) => {
         <TR>
           <TD style={footerStyle}>
             <a href={process.env.URL} style={linkStyle}>
-              Outline
+            QuezX.com
             </a>
             <a href={twitterUrl()} style={externalLinkStyle}>
               Twitter

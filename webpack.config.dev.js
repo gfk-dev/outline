@@ -18,7 +18,7 @@ developmentWebpackConfig.plugins = [
   ...developmentWebpackConfig.plugins,
   new webpack.HotModuleReplacementPlugin(),
   new HtmlWebpackPlugin({
-    title: 'Outline',
+    title: 'QuezX.com',
   }),
 ];
 

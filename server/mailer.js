@@ -92,9 +92,9 @@ export class Mailer {
   welcome = async (opts: { to: string, teamUrl: string }) => {
     this.sendMail({
       to: opts.to,
-      title: 'Welcome to Outline',
+      title: 'Welcome to QuezX.com',
       previewText:
-        'Outline is a place for your team to build and share knowledge.',
+        'QuezX.com is a place for your team to build and share knowledge.',
       html: <WelcomeEmail {...opts} />,
       text: welcomeEmailText(opts),
     });
@@ -105,7 +105,7 @@ export class Mailer {
       to: opts.to,
       attachments: opts.attachments,
       title: 'Your requested export',
-      previewText: "Here's your request data export from Outline",
+      previewText: "Here's your request data export from QuezX.com",
       html: <ExportEmail />,
       text: exportEmailText,
     });
@@ -118,7 +118,7 @@ export class Mailer {
         opts.teamName
       }’s knowledgebase`,
       previewText:
-        'Outline is a place for your team to build and share knowledge.',
+        'QuezX.com is a place for your team to build and share knowledge.',
       html: <InviteEmail {...opts} />,
       text: inviteEmailText(opts),
     });
@@ -128,7 +128,7 @@ export class Mailer {
     this.sendMail({
       to: opts.to,
       title: 'Magic signin link',
-      previewText: 'Here’s your link to signin to Outline.',
+      previewText: 'Here’s your link to signin to QuezX.com.',
       html: <SigninEmail {...opts} />,
       text: signinEmailText(opts),
     });

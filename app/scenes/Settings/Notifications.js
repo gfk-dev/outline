@@ -44,7 +44,7 @@ const options = [
     event: 'emails.onboarding',
     title: 'Getting started',
     description:
-      'Tips on getting started with Outline`s features and functionality',
+      'Tips on getting started with QuezX.com`s features and functionality',
   },
   {
     event: 'emails.features',
@@ -96,7 +96,7 @@ class Notifications extends React.Component<Props> {
         <h1>Notifications</h1>
 
         <HelpText>
-          Manage when and where you receive email notifications from Outline.
+          Manage when and where you receive email notifications from QuezX.com.
           Your email address can be updated in your{' '}
           {team.slackConnected ? 'Slack' : 'Google'} account.
         </HelpText>

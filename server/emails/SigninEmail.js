@@ -14,7 +14,7 @@ export type Props = {
 };
 
 export const signinEmailText = ({ token, teamUrl }: Props) => `
-Use the link below to signin to Outline:
+Use the link below to signin to QuezX.com:
 
 ${process.env.URL}/auth/email.callback?token=${token}
 
@@ -29,7 +29,7 @@ export const SigninEmail = ({ token, teamUrl }: Props) => {
 
       <Body>
         <Heading>Magic signin link</Heading>
-        <p>Click the button below to signin to Outline.</p>
+        <p>Click the button below to signin to QuezX.com.</p>
         <EmptySpace height={10} />
         <p>
           <Button

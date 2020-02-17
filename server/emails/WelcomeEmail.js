@@ -13,9 +13,9 @@ export type Props = {
 };
 
 export const welcomeEmailText = ({ teamUrl }: Props) => `
-Welcome to Outline!
+Welcome to QuezX Documentation!
 
-Outline is a place for your team to build and share knowledge.
+QuezX Documentation is a place for your team to build and share knowledge.
 
 To get started, head to your dashboard and try creating a collection to help document your workflow, create playbooks or help with team onboarding.
 
@@ -30,8 +30,8 @@ export const WelcomeEmail = ({ teamUrl }: Props) => {
       <Header />
 
       <Body>
-        <Heading>Welcome to Outline!</Heading>
-        <p>Outline is a place for your team to build and share knowledge.</p>
+        <Heading>Welcome to QuezX Documentation!</Heading>
+        <p>QuezX Documentation is a place for your team to build and share knowledge.</p>
         <p>
           To get started, head to your dashboard and try creating a collection
           to help document your workflow, create playbooks or help with team

@@ -1,12 +1,12 @@
 // @flow
 import * as React from 'react';
 import styled from 'styled-components';
-import OutlineLogo from 'shared/components/OutlineLogo';
+import OutlineLogo from 'shared/components/QuezxLogo';
 
 function Branding() {
   return (
     <Link href={process.env.URL}>
-      <OutlineLogo size={16} fill="#000" />&nbsp;Outline
+      <OutlineLogo size={16} fill="#000" />&nbsp;QuezX Documentation
     </Link>
   );
 }

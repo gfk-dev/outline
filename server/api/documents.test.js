@@ -1199,7 +1199,7 @@ describe('#documents.create', async () => {
         token: user.getJwtToken(),
         collectionId: collection.id,
         title:
-          'This is a really long title that is not acceptable to Outline because it is so ridiculously long that we need to have a limit somewhere',
+          'This is a really long title that is not acceptable to QuezX Documentation because it is so ridiculously long that we need to have a limit somewhere',
         text: ' ',
       },
     });

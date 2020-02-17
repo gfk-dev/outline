@@ -10,7 +10,7 @@ function KeyboardShortcuts() {
   return (
     <Flex column>
       <HelpText>
-        Outline is designed to be fast and easy to use. All of your usual
+      QuezX Documentation is designed to be fast and easy to use. All of your usual
         keyboard shortcuts work here, and there’s Markdown too.
       </HelpText>
 

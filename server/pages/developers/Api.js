@@ -12,7 +12,7 @@ export default function Api() {
       <PageTitle title="API Reference" />
       <Header background="#AA34F0">
         <h1>API Reference</h1>
-        <p>Outline is built on an open, best-in-class, API</p>
+        <p>QuezX Documentation is built on an open, best-in-class, API</p>
       </Header>
       <Content>
         <Methods>
@@ -53,7 +53,7 @@ export default function Api() {
             <Description>
               You can upload small files and images as part of your documents.
               All files are stored using Amazon S3. Instead of uploading files
-              to Outline, you need to upload them directly to S3 with special
+              to QuezX Documentation, you need to upload them directly to S3 with special
               credentials which can be obtained through this endpoint.
             </Description>
             <Arguments>

@@ -24,11 +24,11 @@ export const inviteEmailText = ({
   teamUrl,
   guest,
 }: Props) => `
-Join ${teamName} on Outline
+Join ${teamName} on QuezX Documentation
 
 ${actorName} (${
   actorEmail
-}) has invited you to join Outline, a place for your team to build and share knowledge.
+}) has invited you to join QuezX Documentation, a place for your team to build and share knowledge.
 
 Join now: ${teamUrl}${guest ? '?guest=true' : ''}
 `;
@@ -45,9 +45,9 @@ export const InviteEmail = ({
       <Header />
 
       <Body>
-        <Heading>Join {teamName} on Outline</Heading>
+        <Heading>Join {teamName} on QuezX Documentation</Heading>
         <p>
-          {actorName} ({actorEmail}) has invited you to join Outline, a place
+          {actorName} ({actorEmail}) has invited you to join QuezX Documentation, a place
           for your team to build and share knowledge.
         </p>
         <EmptySpace height={10} />

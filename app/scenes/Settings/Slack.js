@@ -48,7 +48,7 @@ class Slack extends React.Component<Props> {
         {this.error === 'access_denied' && (
           <Notice>
             Whoops, you need to accept the permissions in Slack to connect
-            Outline to your team. Try again?
+            QuezX Documentation to your team. Try again?
           </Notice>
         )}
         {this.error === 'unauthenticated' && (
@@ -58,8 +58,8 @@ class Slack extends React.Component<Props> {
           </Notice>
         )}
         <HelpText>
-          Preview Outline links your team mates share and use the{' '}
-          <Code>/outline</Code> slash command in Slack to search for documents
+          Preview QuezX Documentation links your team mates share and use the{' '}
+          <Code>/QuezX Documentation</Code> slash command in Slack to search for documents
           in your team’s wiki.
         </HelpText>
         <p>
@@ -77,7 +77,7 @@ class Slack extends React.Component<Props> {
 
         <h2>Collections</h2>
         <HelpText>
-          Connect Outline collections to Slack channels and messages will be
+          Connect QuezX Documentation collections to Slack channels and messages will be
           posted in Slack when documents are published or updated.
         </HelpText>
 

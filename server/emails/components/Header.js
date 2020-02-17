@@ -11,7 +11,7 @@ export default () => {
           <TD>
             <EmptySpace height={40} />
             <img
-              alt="Outline"
+              alt="QuezX Documentation"
               src={`${process.env.URL}/email/header-logo.png`}
               height="48"
               width="48"

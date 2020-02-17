@@ -21,7 +21,7 @@ function Home(props: Props) {
   return (
     <span>
       <Helmet>
-        <title>Outline - Team wiki & knowledge base</title>
+        <title>QuezX Documentation - Team wiki & knowledge base</title>
       </Helmet>
       <Grid>
         <Hero id="signin">

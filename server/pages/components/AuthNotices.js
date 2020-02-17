@@ -53,7 +53,7 @@ export default function AuthNotices({ notice }: Props) {
       )}
       {notice === 'suspended' && (
         <Notice>
-          Your Outline account has been suspended. To re-activate your account,
+          Your QuezX Documentation account has been suspended. To re-activate your account,
           please contact a team admin.
         </Notice>
       )}
